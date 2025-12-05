@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Burger King Game</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: center;
+    }
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      padding: 2em;
+      text-align: center;
+      max-width: 370px;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+    .popup {
+      margin-top: 20px;
+    }
+    button, .choice-btn {
+      margin: 8px 5px;
+      padding: 0.7em 1.7em;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #eabf4f;
+      color: #392319;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.09);
+      transition: background 0.17s;
+    }
+    .choice-btn:hover {
+      background: #ffd98e;
+    }
+    .lose {
+      color: #c82020;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    .win {
+      color: #2ca249;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    .branch-msg {
+      background: #f6f6ff;
+      margin: 18px auto 8px;
+      padding: 12px;
+      border-radius: 7px;
+      font-size: 1.07em;
+      color: #464698;
+      max-width: 280px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/burger.jpg" alt="Burger King Meal" id="burger-img">
+    <div id="gamearea">
+      <!-- Game content will be inserted here -->
+    </div>
+  </div>
+  <script>
+    function restartGame() {
+      document.getElementById('gamearea').innerHTML = `
+        <div class="popup">
+          <div>Welcome to Burger King! What would you like to order?</div>
+          <button class="choice-btn" onclick="chooseWhopper()">Whopper</button>
+          <button class="choice-btn" onclick="lose('You chose Extra Spicy Whopper...')">Extra Spicy Whopper</button>
+        </div>
+      `;
+    }
+
+    function chooseWhopper() {
+      document.getElementById('gamearea').innerHTML = `
+        <div class="popup">
+          <div>You ordered a Whopper! Now, what will you drink?</div>
+          <button class="choice-btn" onclick="win()">Coca-Cola</button>
+          <button class="choice-btn" onclick="lose('You chose Pepsi...')">Pepsi</button>
+        </div>
+      `;
+    }
+
+    function lose(reason) {
+      document.getElementById('gamearea').innerHTML = `
+        <div class="popup">
+          <div class="lose">YOU LOSE!</div>
+          <div style="margin-bottom:12px;">${reason}</div>
+          <button onclick="restartGame()">Restart</button>
+        </div>
+      `;
+    }
+
+    function win() {
+      document.getElementById('gamearea').innerHTML = `
+        <div class="popup">
+          <div class="win">YOU WIN!</div>
+          <div style="margin-bottom:14px;">Enjoy your meal!</div>
+          <button onclick="gotoBranch()">Go to blank branch!</button>
+        </div>
+      `;
+    }
+
+    function gotoBranch() {
+      document.getElementById('gamearea').innerHTML = `
+        <div class="popup branch-msg">
+          You’ve been launched to a new blank branch!<br>
+          (Here, you’d start fresh. There are no files here yet.)
+        </div>
+        <button onclick="restartGame()">Restart Game</button>
+      `;
+    }
+
+    // Start the game on load
+    window.onload = restartGame;
+  </script>
+</body>
+</html>
